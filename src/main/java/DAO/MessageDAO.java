@@ -8,7 +8,7 @@ import Util.ConnectionUtil;
 
 public class MessageDAO {
 
-    // Create a new message
+    // create a new message
     public Message createMessage(Message message) throws SQLException {
 
         String query = "INSERT INTO Message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?)";
@@ -33,7 +33,7 @@ public class MessageDAO {
         return message;
     }
 
-    // Retrieve all messages
+    // retrieve all messages
     public List<Message> getAllMessages() throws SQLException {
 
         List<Message> messages = new ArrayList<>();
@@ -56,7 +56,7 @@ public class MessageDAO {
         return messages;
     }
 
-    // Retrieve a message by ID
+    // retrieve a message by ID
     public Message getMessageById(int messageId) throws SQLException {
 
         String query = "SELECT * FROM Message WHERE message_id = ?";
@@ -80,7 +80,7 @@ public class MessageDAO {
         return null;
     }
 
-    // Delete a message by ID
+    // delete a message by ID
     public Message deleteMessageById(int messageId) throws SQLException {
 
         String query = "DELETE FROM Message WHERE message_id = ?";
@@ -98,7 +98,7 @@ public class MessageDAO {
         return deletedMessage;
     }
 
-    // Update a message by ID
+    // update a message by ID
     public Message updateMessage(int messageId, String newMessageText) throws SQLException {
         
         String query = "UPDATE Message SET message_text = ? WHERE message_id = ?";
@@ -119,7 +119,7 @@ public class MessageDAO {
         return null;
     }
 
-    // Retrieve all messages posted by a particular user
+    // retrieve all messages posted by a particular user
     public List<Message> getMessagesByUserId(int userId) throws SQLException {
 
         List<Message> messages = new ArrayList<>();
@@ -140,7 +140,7 @@ public class MessageDAO {
                 ));
             }
         }
-        
+
         return messages;
     }
 }

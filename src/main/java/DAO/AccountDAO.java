@@ -7,7 +7,7 @@ import Util.ConnectionUtil;
 
 public class AccountDAO {
 
-    // Create a new user account
+    // create a new user account
     public Account createAccount(Account account) throws SQLException {
         String query = "INSERT INTO Account (username, password) VALUES (?, ?)";
 
@@ -25,12 +25,12 @@ public class AccountDAO {
                 }
             }
         }
-        
+
         return account;
     }
 
-    // Identify an account by username
-    public Account findAccountByUsername(String username) throws SQLException {
+    // identify an account by username
+    public Account getAccountByUsername(String username) throws SQLException {
         String query = "SELECT * FROM Account WHERE username = ?";
 
         try (Connection conn = ConnectionUtil.getConnection();
@@ -47,8 +47,8 @@ public class AccountDAO {
         return null;
     }
 
-    // Return account by account_id
-    public Account findAccountById(int accountId) throws SQLException {
+    // return account by account_id
+    public Account getAccountById(int accountId) throws SQLException {
         String query = "SELECT * FROM Account WHERE account_id = ?";
 
         try (Connection conn = ConnectionUtil.getConnection();
