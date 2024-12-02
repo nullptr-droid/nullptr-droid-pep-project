@@ -38,10 +38,10 @@ public class SocialMediaController {
         // endpoints for message
         app.post("/messages", this::createMessage);
         app.get("/messages", this::getAllMessages);
-        app.get("/messages/:id", this::getMessageById);
-        app.get("/accounts/:account_id/messages", this::getMessagesByUser);
-        app.delete("/messages/:id", this::deleteMessageById);
-        app.patch("/messages/:id", this::updateMessageById);
+        app.get("/messages/{id}", this::getMessageById);
+        app.get("/accounts/{account_id}/messages", this::getMessagesByUser);
+        app.delete("/messages/{id}", this::deleteMessageById);
+        app.patch("/messages/{id}", this::updateMessageById);
 
         return app;
     }
