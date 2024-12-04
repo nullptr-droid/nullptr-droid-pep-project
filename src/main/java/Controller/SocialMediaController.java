@@ -10,6 +10,8 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 import java.sql.SQLException;
 import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SocialMediaController {
     private AccountService accountService;
@@ -129,7 +131,7 @@ public class SocialMediaController {
         }
     }
 
-    // dlete a message by ID
+    // delete a message by ID
     private void deleteMessageById(Context context) {
         try {
             int messageId = Integer.parseInt(context.pathParam("message_id"));
@@ -148,18 +150,23 @@ public class SocialMediaController {
     private void updateMessageById(Context context) {
         try {
             int messageId = Integer.parseInt(context.pathParam("message_id"));
-            String newMessageText = context.bodyAsClass(String.class);
-            if (newMessageText.isBlank() || newMessageText.length() > 255) {
-                context.status(400);
-                return;
-            }
+            String rawBody = context.body();
+
+            // using Jackson ObjectMapper to parse the raw JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(rawBody);
+            
+            // extract the 'message_text' from the parsed JSON
+            JsonNode messageTextNode = rootNode.get("message_text");
+
+            String newMessageText = messageTextNode.asText(); 
             Message updatedMessage = messageService.updateMessage(messageId, newMessageText);
             if (updatedMessage != null) {
                 context.status(200).json(updatedMessage);
             } else {
                 context.status(400);
             }
-        } catch (SQLException | NumberFormatException e) {
+        } catch (Exception e) {
             context.status(400);
         }
     }

@@ -48,9 +48,9 @@ public class MessageService {
 
     // update message text
     public Message updateMessage(int messageId, String newMessageText) throws SQLException {
-        // check if message text is valid
-        if (newMessageText.isBlank() || newMessageText.length() > 255) {
-            throw new IllegalArgumentException("Invalid message text.");
+        // check if message exists, is blank, or if length is greater than 255
+        if (messageDAO.getMessageById(messageId) == null || newMessageText.isBlank() || newMessageText.length() > 255) {
+            return null;  
         }
 
         return messageDAO.updateMessage(messageId, newMessageText);
