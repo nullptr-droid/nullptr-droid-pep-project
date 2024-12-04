@@ -37,7 +37,7 @@ public class SocialMediaController {
         app.post("/register", this::registerUser);
         app.post("/login", this::loginUser);
 
-        // endpoints for message
+        // endpoints for Message
         app.post("/messages", this::createMessage);
         app.get("/messages", this::getAllMessages);
         app.get("/messages/{message_id}", this::getMessageById);
